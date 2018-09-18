@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Pokemon } from '../pokemon';
 
 @Component({
   selector: 'app-pokemones',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PokemonesComponent implements OnInit {
 
-  pokemon = 'Turtwig';
+  pokemon: Pokemon = {
+    id: 389,
+    nombre: 'Torterra',
+    tipo_prim: 'Planta',
+    tipo_secu: 'Tierra',
+    region: 'Sinnoh'
+  };
 
   constructor() { }
 
