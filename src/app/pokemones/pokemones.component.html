@@ -1,3 +1,10 @@
+<h2>Mis Pokémon</h2>
+<ul class="pokemones">
+    <li *ngFor="let pokemon of pokemones">
+        <span class="badge">{{pokemon.id}}</span> {{pokemon.nombre}} {{pokemon.tipo_prim}} {{pokemon.tipo_secu}} {{pokemon.region}}
+    </li>
+</ul>
+
 <h2>Detalles de {{pokemon.nombre | uppercase}}</h2>
 <div><span>id: </span>{{pokemon.id}}</div>
 <div><span>nombre: </span>{{pokemon.nombre}}</div>
