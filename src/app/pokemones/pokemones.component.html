@@ -6,30 +6,3 @@
         <span class="badge">{{pokemon.id}}</span> {{pokemon.nombre}} {{pokemon.tipo_prim}} {{pokemon.tipo_secu}} {{pokemon.region}}
     </li>
 </ul>
-
-<div *ngIf="selectedPokemon">
-
-    <h2>Detalles de {{selectedPokemon.nombre | uppercase}}</h2>
-    <div><span>id: </span>{{selectedPokemon.id}}</div>
-    <div>
-        <label>nombre: 
-            <input [(ngModel)]="selectedPokemon.nombre" placeholder="nombre">
-        </label>
-    </div>
-    <div>
-        <label>tipo primario: 
-            <input [(ngModel)]="selectedPokemon.tipo_prim" placeholder="tipo primario">
-        </label>
-    </div>
-    <div>
-        <label>tipo secundario: 
-            <input [(ngModel)]="selectedPokemon.tipo_secu" placeholder="tipo secundario">
-        </label>
-    </div>
-    <div>
-        <label>region: 
-            <input [(ngModel)]="selectedPokemon.region" placeholder="region">
-        </label>
-    </div>
-
-</div>
