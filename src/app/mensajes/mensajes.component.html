@@ -1,3 +1,8 @@
-<p>
-  mensajes works!
-</p>
+<div *ngIf="servicioMensaje.mensajes.length">
+
+  <h2>Mensajes</h2>
+  <button class="clear"
+    (click)="servicioMensaje.clear()">limpiar</button>
+  <div *ngFor='let mensaje of servicioMensaje.mensajes'> {{mensaje}} </div>
+
+</div>
