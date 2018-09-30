@@ -1,29 +1,30 @@
 <h2>Mis Pokémon</h2>
 <ul class="pokemones">
-    <li *ngFor="let pokemon of pokemones">
+    <li *ngFor="let pokemon of pokemones"
+        (click)="onSelect(pokemon)">
         <span class="badge">{{pokemon.id}}</span> {{pokemon.nombre}} {{pokemon.tipo_prim}} {{pokemon.tipo_secu}} {{pokemon.region}}
     </li>
 </ul>
 
-<h2>Detalles de {{pokemon.nombre | uppercase}}</h2>
-<div><span>id: </span>{{pokemon.id}}</div>
+<h2>Detalles de {{selectedPokemon.nombre | uppercase}}</h2>
+<div><span>id: </span>{{selectedPokemon.id}}</div>
 <div>
     <label>nombre: 
-        <input [(ngModel)]="pokemon.nombre" placeholder="nombre">
+        <input [(ngModel)]="selectedPokemon.nombre" placeholder="nombre">
     </label>
 </div>
 <div>
     <label>tipo primario: 
-        <input [(ngModel)]="pokemon.tipo_prim" placeholder="tipo primario">
+        <input [(ngModel)]="selectedPokemon.tipo_prim" placeholder="tipo primario">
     </label>
 </div>
 <div>
     <label>tipo secundario: 
-        <input [(ngModel)]="pokemon.tipo_secu" placeholder="tipo secundario">
+        <input [(ngModel)]="selectedPokemon.tipo_secu" placeholder="tipo secundario">
     </label>
 </div>
 <div>
     <label>region: 
-        <input [(ngModel)]="pokemon.region" placeholder="region">
+        <input [(ngModel)]="selectedPokemon.region" placeholder="region">
     </label>
 </div>

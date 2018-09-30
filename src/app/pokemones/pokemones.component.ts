@@ -9,15 +9,13 @@ import { POKEMONES } from '../mock-pokemones';
 })
 export class PokemonesComponent implements OnInit {
 
-  pokemon: Pokemon = {
-    id: 389,
-    nombre: 'Torterra',
-    tipo_prim: 'Planta',
-    tipo_secu: 'Tierra',
-    region: 'Sinnoh'
-  };
+  selectedPokemon: Pokemon;
 
   pokemones = POKEMONES;
+
+  onSelect(pokemon: Pokemon): void {
+    this.selectedPokemon = pokemon;
+  }
 
   constructor() { }
 
