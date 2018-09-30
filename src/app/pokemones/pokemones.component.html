@@ -1,4 +1,5 @@
 <h2>Mis Pokémon</h2>
+
 <ul class="pokemones">
     <li *ngFor="let pokemon of pokemones"
         [class.selected]="pokemon === selectedPokemon"
@@ -6,3 +7,5 @@
         <span class="badge">{{pokemon.id}}</span> {{pokemon.nombre}} {{pokemon.tipo_prim}} {{pokemon.tipo_secu}} {{pokemon.region}}
     </li>
 </ul>
+
+<app-info-pokemon [pokemon]="selectedPokemon"></app-info-pokemon>
