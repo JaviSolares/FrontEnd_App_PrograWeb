@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { PokemonesComponent } from './pokemones/pokemones.component';
 import { InfoPokemonComponent } from './info-pokemon/info-pokemon.component';
 import { MensajesComponent } from './mensajes/mensajes.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { MensajesComponent } from './mensajes/mensajes.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
