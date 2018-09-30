@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../pokemon';
-import { POKEMONES } from '../mock-pokemones';
+import { PokemonService } from '../pokemon.service';
 
 @Component({
   selector: 'app-pokemones',
@@ -11,15 +11,20 @@ export class PokemonesComponent implements OnInit {
 
   selectedPokemon: Pokemon;
 
-  pokemones = POKEMONES;
+  pokemones: Pokemon[];
 
   onSelect(pokemon: Pokemon): void {
     this.selectedPokemon = pokemon;
   }
 
-  constructor() { }
+  getPokemones(): void {
+    this.pokemones = this.pokemonService.getPokemones();
+  }
+
+  constructor(private pokemonService: PokemonService) { }
 
   ngOnInit() {
+    this.getPokemones();
   }
 
 }
