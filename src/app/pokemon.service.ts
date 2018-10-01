@@ -41,6 +41,14 @@ export class PokemonService {
     );
   }
 
+  /** POST: add a new hero to the server */
+  addPokemon (pokemon: Pokemon): Observable<Pokemon> {
+    return this.http.post<Pokemon>(this.pokemonesUrl, pokemon, httpOptions).pipe(
+      tap((pokemon: Pokemon) => this.log(`se creó un pokémon con id=${pokemon.id}`)),
+      catchError(this.handleError<Pokemon>('addPokemon'))
+    );
+  }
+
   /**
   * Handle Http operation that failed.
   * Let the app continue.
