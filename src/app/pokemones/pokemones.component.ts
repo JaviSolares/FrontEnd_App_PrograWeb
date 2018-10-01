@@ -8,14 +8,7 @@ import { PokemonService } from '../pokemon.service';
   styleUrls: ['./pokemones.component.css']
 })
 export class PokemonesComponent implements OnInit {
-
-  selectedPokemon: Pokemon;
-
   pokemones: Pokemon[];
-
-  onSelect(pokemon: Pokemon): void {
-    this.selectedPokemon = pokemon;
-  }
 
   getPokemones(): void {
     this.pokemonService.getPokemones()
@@ -27,5 +20,4 @@ export class PokemonesComponent implements OnInit {
   ngOnInit() {
     this.getPokemones();
   }
-
 }
