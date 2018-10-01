@@ -14,5 +14,11 @@ export class PokemonService {
     return of(POKEMONES);
   }
 
+  getPokemon(id: number): Observable<Pokemon> {
+    // TODO: send the message _after_ fetching the pokemon
+    this.servicioMensaje.add(`PokemonService: se recuperó pokémon id=${id}`);
+    return of(POKEMONES.find(pokemon => pokemon.id === id));
+  }
+
   constructor(private servicioMensaje: MensajeService) { }
 }
