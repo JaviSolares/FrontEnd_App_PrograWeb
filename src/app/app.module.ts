@@ -6,6 +6,7 @@ import { PokemonesComponent } from './pokemones/pokemones.component';
 import { InfoPokemonComponent } from './info-pokemon/info-pokemon.component';
 import { MensajesComponent } from './mensajes/mensajes.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
     MensajesComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule
