@@ -20,8 +20,13 @@ export class PokemonService {
       );
   }
 
+  /** GET pokemon by id. Will 404 if id not found */
   getPokemon(id: number): Observable<Pokemon> {
-    return of(POKEMONES.find(pokemon => pokemon.id === id));
+    const url = `${this.pokemonesUrl}/${id}`;
+    return this.http.get<Pokemon>(url).pipe(
+      tap(_ => this.log(`se recuperó pokémon id=${id}`)),
+      catchError(this.handleError<Pokemon>(`getPokemon id=${id}`))
+    );
   }
 
   /**
