@@ -5,6 +5,10 @@ import { MensajeService } from './mensaje.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +30,14 @@ export class PokemonService {
     return this.http.get<Pokemon>(url).pipe(
       tap(_ => this.log(`se recuperó pokémon id=${id}`)),
       catchError(this.handleError<Pokemon>(`getPokemon id=${id}`))
+    );
+  }
+
+  /** PUT: update the pokemon on the server */
+  updatePokemon (pokemon: Pokemon): Observable<any> {
+    return this.http.put(this.pokemonesUrl, pokemon, httpOptions).pipe(
+      tap(_ => this.log(`se actualizó el pokémon id=${pokemon.id}`)),
+      catchError(this.handleError<any>('updatePokemon'))
     );
   }
 
