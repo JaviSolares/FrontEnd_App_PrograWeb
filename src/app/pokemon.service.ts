@@ -49,6 +49,17 @@ export class PokemonService {
     );
   }
 
+  /** DELETE: delete the pokemon from the server */
+  deletePokemon (pokemon: Pokemon | number): Observable<Pokemon> {
+    const id = typeof pokemon === 'number' ? pokemon : pokemon.id;
+    const url = `${this.pokemonesUrl}/${id}`;
+
+    return this.http.delete<Pokemon>(url, httpOptions).pipe(
+      tap(_ => this.log(`se eliminó al pokémon id=${id}`)),
+      catchError(this.handleError<Pokemon>('deletePokemon'))
+    );
+  }
+
   /**
   * Handle Http operation that failed.
   * Let the app continue.
