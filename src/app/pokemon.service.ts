@@ -10,8 +10,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class PokemonService {
   private pokemonesUrl = 'api/pokemones';  // URL to web api
   
-  getPokemones(): Observable<Pokemon[]> {
-    return of(POKEMONES);
+  /** GET pokemones from the server */
+  getPokemones (): Observable<Pokemon[]> {
+    return this.http.get<Pokemon[]>(this.pokemonesUrl)
   }
 
   getPokemon(id: number): Observable<Pokemon> {
