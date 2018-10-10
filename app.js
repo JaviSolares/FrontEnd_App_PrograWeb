@@ -11,39 +11,64 @@ app.use(bodyParser.json());
 const servidorUrl = '/api/v1/pokemon';
 app.use('/api/v1/pokemon', router);
 
+const listaPokemon = [
+    { id: 1, nombre: 'Bulbasaur', tipo_prim: 'Planta', tipo_secu: 'Veneno', region: 'Kanto' },
+    { id: 2, nombre: 'Ivysaur', tipo_prim: 'Planta', tipo_secu: 'Veneno', region: 'Kanto' },
+    { id: 3, nombre: 'Venusaur', tipo_prim: 'Planta', tipo_secu: 'Veneno', region: 'Kanto' },
+    { id: 155, nombre: 'Cyndaquil', tipo_prim: 'Fuego', tipo_secu: '---', region: 'Johto' },
+    { id: 156, nombre: 'Quilava', tipo_prim: 'Fuego', tipo_secu: '---', region: 'Johto' },
+    { id: 157, nombre: 'Typhlosion', tipo_prim: 'Fuego', tipo_secu: '---', region: 'Johto' },
+    { id: 258, nombre: 'Mudkip', tipo_prim: 'Agua', tipo_secu: '---', region: 'Hoenn' },
+    { id: 259, nombre: 'Marshtomp', tipo_prim: 'Agua', tipo_secu: 'Tierra', region: 'Hoenn' },
+    { id: 260, nombre: 'Swampert', tipo_prim: 'Agua', tipo_secu: 'Tierra', region: 'Hoenn' }
+];
 
-var dataPokemones = require('./src/app/in-memory-data.service.ts');
-const listaPokemon = dataPokemones.pokemones;
-
-function readPokemon() {
-    app.param('id', function(req, res, next, id) {
-        if (id === '')
+//function readPokemon() {
+    /*app.param('id', function(req, res, next, id) {
+        if (id === null)
         {
             res.send(200, JSON.stringify(listaPokemon));
         }
         else
         {
-            var pokemon = listaPokemon.find(function(p) {
-                return p.id === id;
-            });
+            var pokemon = listaPokemon.find(x => x.id === id);
 
-            if (pokemon === undefined)
+            if (true)
             {
                 res.send(404, 'No se encontró ningún pokémon con ese id.');
             }
             else
             {
-                req.id = id;
+                req.params.id = id;
                 next();
             }
         }
-    })
+    });*/
     
     app.get('/api/v1/pokemon/:id', function(req, res) {
-        res.sendFile('index.html', 
-        { root: 'C:/Users/Javier/Desktop/FrontEnd_App_PrograWeb-master/FrontEnd_App_PrograWeb/' });
+        if (req.params.id === null)
+        {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify({ message: listaPokemon }));
+            res.end();
+        }
+        else
+        {
+            var num = Number(req.params.id);
+            if (!listaPokemon.some(x => x.id === num))
+            {
+                res.send(404, 'No se encontró ningún pokémon con ese id.');
+            }
+            else
+            {
+                res.send('Hey ' + req.params.id + '!');
+            }
+        }
+        
+        //res.sendFile('index.html', 
+        //{ root: 'C:/Users/Javier/Desktop/FrontEnd_App_PrograWeb-master/FrontEnd_App_PrograWeb/' });
     });    
-}
+//}
 
 
 app.post('/submit-student-data', function (req, res) {
