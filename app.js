@@ -24,27 +24,6 @@ const listaPokemon = [
 ];
 
 //function readPokemon() {
-    /*app.param('id', function(req, res, next, id) {
-        if (id === null)
-        {
-            res.send(200, JSON.stringify(listaPokemon));
-        }
-        else
-        {
-            var pokemon = listaPokemon.find(x => x.id === id);
-
-            if (true)
-            {
-                res.send(404, 'No se encontró ningún pokémon con ese id.');
-            }
-            else
-            {
-                req.params.id = id;
-                next();
-            }
-        }
-    });*/
-    
     app.get('/api/v1/pokemon', function(req, res) {
         var jsonLista = JSON.stringify({listaPokemon});
         res.send(jsonLista);
