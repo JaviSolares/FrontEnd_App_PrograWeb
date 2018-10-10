@@ -10,7 +10,9 @@ const listaPokemon = [
     { id: 260, nombre: 'Swampert', tipo_prim: 'Agua', tipo_secu: 'Tierra', region: 'Hoenn' }
 ];
 
-function getLista() {
-    return listaPokemon;
+module.exports = {
+    getLista: function() {
+        return listaPokemon;
+    }
 }
 
