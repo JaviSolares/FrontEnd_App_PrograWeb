@@ -10,17 +10,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const servidorUrl = '/api/v1/pokemon';
-app.use('/api/v1/pokemon', router);
+app.use(servidorUrl, router);
 
 var listaPokemon = datos.getLista();
 
 //function readPokemon() {
-    app.get('/api/v1/pokemon', function(req, res) {
+    app.get(servidorUrl, function(req, res) {
         var jsonLista = JSON.stringify({listaPokemon});
         res.send(jsonLista);
     });
 
-    app.get('/api/v1/pokemon/:id', function(req, res) {
+    app.get(servidorUrl + '/:id', function(req, res) {
         var num = Number(req.params.id);
         if (!listaPokemon.some(x => x.id === num))
         {
