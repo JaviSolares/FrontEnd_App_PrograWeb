@@ -61,7 +61,12 @@ const listaPokemon = [
             }
             else
             {
-                res.send('Hey ' + req.params.id + '!');
+                var pokemon = listaPokemon.find(x => x.id === num);
+                
+                res.send('Id: ' + pokemon.id + '<br />Nombre: ' +
+                pokemon.nombre + '<br />Tipo Primario: ' + pokemon.tipo_prim
+                + '<br />Tipo Secundario: ' + pokemon.tipo_secu +
+                '<br />Región: ' + pokemon.region);
             }
         }
         
