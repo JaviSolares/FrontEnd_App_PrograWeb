@@ -45,38 +45,32 @@ const listaPokemon = [
         }
     });*/
     
+    app.get('/api/v1/pokemon', function(req, res) {
+        var jsonLista = JSON.stringify({listaPokemon});
+        res.send(jsonLista);
+    });
+
     app.get('/api/v1/pokemon/:id', function(req, res) {
-        if (!req.params.id)
+        var num = Number(req.params.id);
+        if (!listaPokemon.some(x => x.id === num))
         {
-            //res.writeHead(200, { 'Content-Type': 'application/json' });
-            var jsonLista = JSON.stringify({listaPokemon});
-            res.send(jsonLista);
+            res.send(404, 'No se encontró ningún pokémon con ese id.');
         }
         else
         {
-            var num = Number(req.params.id);
-            if (!listaPokemon.some(x => x.id === num))
-            {
-                res.send(404, 'No se encontró ningún pokémon con ese id.');
-            }
-            else
-            {
-                var pokemon = listaPokemon.find(x => x.id === num);
+            var pokemon = listaPokemon.find(x => x.id === num);
                 
-                res.send('Id: ' + pokemon.id + '<br />Nombre: ' +
-                pokemon.nombre + '<br />Tipo Primario: ' + pokemon.tipo_prim
-                + '<br />Tipo Secundario: ' + pokemon.tipo_secu +
-                '<br />Región: ' + pokemon.region);
-            }
+            res.send('Id: ' + pokemon.id + '<br />Nombre: ' +
+            pokemon.nombre + '<br />Tipo Primario: ' + pokemon.tipo_prim
+            + '<br />Tipo Secundario: ' + pokemon.tipo_secu +
+            '<br />Región: ' + pokemon.region);
         }
-        
         //res.sendFile('index.html', 
         //{ root: 'C:/Users/Javier/Desktop/FrontEnd_App_PrograWeb-master/FrontEnd_App_PrograWeb/' });
     });    
 //}
 
-
-app.post('/submit-student-data', function (req, res) {
+app.post('/submit-pokemon-data', function (req, res) {
     var name = req.body.firstName + ' ' + req.body.lastName;
     
     res.send(name + ' Submitted Successfully!');
