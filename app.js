@@ -46,7 +46,7 @@ const listaPokemon = [
     });*/
     
     app.get('/api/v1/pokemon/:id', function(req, res) {
-        if (req.params.id === null)
+        if (req.params.id === '')
         {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.write(JSON.stringify({ message: listaPokemon }));
