@@ -46,9 +46,10 @@ var listaPokemon = datos.getLista();
 
 app.post('/submit-pokemon-data', function (req, res) {
     var json = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
-        req.body.tipo_secu, req.body.region);
-    
-    res.send(json);
+        req.body.tipo_secu, req.body.region);  
+    var nuevo = JSON.parse(json);
+    listaPokemon.push(nuevo);
+    res.send(JSON.stringify(listaPokemon));
 });
 
 app.put('/update-data', function (req, res) {
