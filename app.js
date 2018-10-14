@@ -44,7 +44,7 @@ var listaPokemon = datos.getLista();
     });    
 //}
 
-app.post('/submit-pokemon-data', function (req, res) {
+app.post(servidorUrl + '/submit-pokemon-data', function (req, res) {
     var json = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
         req.body.tipo_secu, req.body.region);  
     var nuevo = JSON.parse(json);
