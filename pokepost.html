@@ -12,7 +12,8 @@
         Tipo Primario: <input name="tipo_prim" type="text" /> <br />
         Tipo Secundario: <input name="tipo_secu" type="text" /> <br />
         Región: <input name="region" type="text" /> <br />
-        <input type="submit" />
+        <input type="submit" (click)="createPokemon(id.value, nombre.value,
+        tipo_prim.value, tipo_secu.value, region.value);" />
     </form>
 </body>
 </html>

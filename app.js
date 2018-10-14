@@ -22,7 +22,12 @@ var listaPokemon = datos.getLista();
 
     app.get(servidorUrl + '/:id', function(req, res) {
         var num = Number(req.params.id);
-        if (!listaPokemon.some(x => x.id === num))
+        if (req.params.id === 'add-new')
+        {
+            res.sendFile('pokepost.html', 
+            { root: 'C:/Users/Javier/Desktop/FrontEnd_App_PrograWeb-master/FrontEnd_App_PrograWeb/' });
+        }
+        else if (!listaPokemon.some(x => x.id === num))
         {
             res.send(404, 'No se encontró ningún pokémon con ese id.');
         }
@@ -35,15 +40,15 @@ var listaPokemon = datos.getLista();
             + '<br />Tipo Secundario: ' + pokemon.tipo_secu +
             '<br />Región: ' + pokemon.region);
         }
-        //res.sendFile('index.html', 
-        //{ root: 'C:/Users/Javier/Desktop/FrontEnd_App_PrograWeb-master/FrontEnd_App_PrograWeb/' });
+        
     });    
 //}
 
 app.post('/submit-pokemon-data', function (req, res) {
-    var name = req.body.firstName + ' ' + req.body.lastName;
+    var json = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
+        req.body.tipo_secu, req.body.region);
     
-    res.send(name + ' Submitted Successfully!');
+    res.send(json);
 });
 
 app.put('/update-data', function (req, res) {
