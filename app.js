@@ -48,11 +48,19 @@ app.post(servidorUrl + '/submit-pokemon-data', function (req, res) {
     var json = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
         req.body.tipo_secu, req.body.region);  
     var nuevo = JSON.parse(json);
-    listaPokemon.push(nuevo);
-    res.send(JSON.stringify(listaPokemon));
+    if (listaPokemon.some(x => x.id === nuevo.id))
+    {
+        res.statusMessage = `Ya existe un pokémon con el id ${req.params.id}.`;
+        res.sendStatus(409);
+    }
+    else
+    {
+        listaPokemon.push(nuevo);
+        res.sendStatus(201, `El pokémon con id ${req.params.id} fue agregado exitosamente a la lista.`);
+    }
 });
 
-app.put('/update-data', function (req, res) {
+app.put(servidorUrl + '/update-data/:id', function (req, res) {
     res.send('PUT Request');
 });
 
