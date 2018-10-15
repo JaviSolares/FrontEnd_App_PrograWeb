@@ -45,9 +45,8 @@ var listaPokemon = datos.getLista();
 //}
 
 app.post(servidorUrl + '/submit-pokemon-data', function (req, res) {
-    var json = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
+    var nuevo = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
         req.body.tipo_secu, req.body.region);  
-    var nuevo = JSON.parse(json);
     if (listaPokemon.some(x => x.id === nuevo.id))
     {
         res.statusMessage = `Ya existe un pokémon con el id ${req.params.id}.`;

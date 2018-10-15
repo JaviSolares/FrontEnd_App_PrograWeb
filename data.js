@@ -16,14 +16,13 @@ module.exports = {
     },
     createPokemon: function(n_id, n_nombre, n_tipo_prim, n_tipo_secu, n_region) {
         var nuevo = {
-            id: n_id,
+            id: parseInt(n_id),
             nombre: n_nombre,
             tipo_prim: n_tipo_prim,
             tipo_secu: n_tipo_secu,
             region: n_region
         };
-        var jsonNuevo = JSON.stringify(nuevo);
-        return jsonNuevo;
+        return nuevo;
     }
 }
 
