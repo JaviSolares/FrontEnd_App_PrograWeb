@@ -63,7 +63,9 @@ app.put(servidorUrl + '/update-data/:id', function (req, res) {
     var num = Number(req.params.id);
     if (listaPokemon.some(x => x.id === num))
     {
-        
+        var anticuado = listaPokemon.find(x => x.id === num);
+        anticuado = datos.editPokemon(anticuado, req.params.nombre, req.params.tipo_prim,
+            req.params.tipo_secu, req.params.region);
     }
     else
     {
@@ -72,8 +74,18 @@ app.put(servidorUrl + '/update-data/:id', function (req, res) {
     res.send('PUT Request');
 });
 
-app.delete('/delete-data', function (req, res) {
-    res.send('DELETE Request');
+app.delete(servidorUrl + '/delete-data/:id', function (req, res) {
+    var num = Number(req.params.id);
+    if (listaPokemon.some(x => x.id === num))
+    {
+        var indice = listaPokemon.findIndex(x => x.id === num);
+        listaPokemon.splice(indice, 1);
+        res.send(204, 'El pokémon con id' + String(num) + 'fue eliminado de la lista.');
+    }
+    else
+    {
+        res.send(404, 'No se encontró ningún pokémon con ese id.');
+    }
 });
 
 var server = app.listen(5000, function() {
