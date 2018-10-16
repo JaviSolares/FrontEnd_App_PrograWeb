@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-app.route(servidorUrl).get(function(req, res) {
+router.get('/', function(req, res) {
     var jsonLista = JSON.stringify({listaPokemon});
     res.send(jsonLista);
 });
 
-app.route(servidorUrl + '/get/:id').get(function(req, res, next) {
+router.get('/get/:id', function(req, res, next) {
     var num = Number(req.params.id);
     /*if (req.params.id === 'add-new')
     {
@@ -30,11 +30,7 @@ app.route(servidorUrl + '/get/:id').get(function(req, res, next) {
 });    
 //}
 
-app.route(servidorUrl + '/add-new')
-.get(function(req, res, next) {
-    window.open('C:/Users/Javier/Desktop/FrontEnd_App_PrograWeb-master/FrontEnd_App_PrograWeb/pokepost.html');
-})
-.post(function (req, res) {
+router.post('/add-new', function (req, res) {
 var nuevo = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
     req.body.tipo_secu, req.body.region);  
 if (listaPokemon.some(x => x.id === nuevo.id))
@@ -49,7 +45,7 @@ else
 }
 });
 
-app.put(servidorUrl + '/update-pokemon-data', function (req, res) {
+router.put(servidorUrl + '/update-pokemon-data', function (req, res) {
     var num = Number(req.params.id);
     if (listaPokemon.some(x => x.id === num))
     {
@@ -65,7 +61,7 @@ app.put(servidorUrl + '/update-pokemon-data', function (req, res) {
     res.send('PUT Request');
 });
 
-app.delete(servidorUrl + '/delete-data/:id', function (req, res) {
+router.delete(servidorUrl + '/delete-data/:id', function (req, res) {
     var num = Number(req.params.id);
     if (listaPokemon.some(x => x.id === num))
     {
