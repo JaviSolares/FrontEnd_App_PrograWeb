@@ -60,6 +60,15 @@ app.post(servidorUrl + '/submit-pokemon-data', function (req, res) {
 });
 
 app.put(servidorUrl + '/update-data/:id', function (req, res) {
+    var num = Number(req.params.id);
+    if (listaPokemon.some(x => x.id === num))
+    {
+        
+    }
+    else
+    {
+        res.send(404, 'No se encontró ningún pokémon con ese id.');
+    }
     res.send('PUT Request');
 });
 
