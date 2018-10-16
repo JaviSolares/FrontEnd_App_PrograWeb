@@ -1,15 +1,15 @@
 // import { stringify } from "@angular/core/src/util";
 
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 var datos = require('./data');
+const router = require('./rutas/api');
 
-var bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: false }));
+const bodyParser = require("body-parser");
+// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const servidorUrl = '/api/v1/pokemon';
-app.use('/api/v1/pokemon', require('./rutas/api'));
+app.use('/api/v1/pokemon', router);
 
 var listaPokemon = datos.getLista();
 

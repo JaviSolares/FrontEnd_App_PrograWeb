@@ -31,22 +31,24 @@ router.get('/get/:id', function(req, res, next) {
 //}
 
 router.post('/add-new', function (req, res) {
-var nuevo = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
-    req.body.tipo_secu, req.body.region);  
-if (listaPokemon.some(x => x.id === nuevo.id))
-{
-    res.statusMessage = `Ya existe un pokémon con el id ${req.params.id}.`;
-    res.sendStatus(409);
-}
-else
-{
-    listaPokemon.push(nuevo);
-    res.sendStatus(201, `El pokémon con id ${req.params.id} fue agregado exitosamente a la lista.`);
-}
+    res.send({ type: 'POST' });
+    /*var nuevo = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
+        req.body.tipo_secu, req.body.region);  
+    if (listaPokemon.some(x => x.id === nuevo.id))
+    {
+        res.statusMessage = `Ya existe un pokémon con el id ${req.params.id}.`;
+        res.sendStatus(409);
+    }
+    else
+    {
+        listaPokemon.push(nuevo);
+        res.sendStatus(201, `El pokémon con id ${req.params.id} fue agregado exitosamente a la lista.`);
+    }*/
 });
 
-router.put(servidorUrl + '/update-pokemon-data', function (req, res) {
-    var num = Number(req.params.id);
+router.put('/update-pokemon-data', function (req, res) {
+    res.send({ type: 'PUT' });
+    /*var num = Number(req.params.id);
     if (listaPokemon.some(x => x.id === num))
     {
         document.open('C:/Users/Javier/Desktop/FrontEnd_App_PrograWeb-master/FrontEnd_App_PrograWeb/pokeput.html');
@@ -58,11 +60,12 @@ router.put(servidorUrl + '/update-pokemon-data', function (req, res) {
     {
         res.send(404, 'No se encontró ningún pokémon con ese id.');
     }
-    res.send('PUT Request');
+    res.send('PUT Request');*/
 });
 
-router.delete(servidorUrl + '/delete-data/:id', function (req, res) {
-    var num = Number(req.params.id);
+router.delete('/delete-data/:id', function (req, res) {
+    res.send({ type: 'DELETE' });
+    /*var num = Number(req.params.id);
     if (listaPokemon.some(x => x.id === num))
     {
         var indice = listaPokemon.findIndex(x => x.id === num);
@@ -72,5 +75,7 @@ router.delete(servidorUrl + '/delete-data/:id', function (req, res) {
     else
     {
         res.send(404, 'No se encontró ningún pokémon con ese id.');
-    }
+    }*/
 });
+
+module.exports = router;
