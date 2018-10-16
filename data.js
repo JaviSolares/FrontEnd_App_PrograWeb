@@ -25,6 +25,10 @@ module.exports = {
         return nuevo;
     },
     editPokemon: function(pokemon, n_nombre, n_tipo_prim, n_tipo_secu, n_region) {
+        n_nombre = String(n_nombre);
+        n_tipo_prim = String(n_tipo_prim);
+        n_tipo_secu = String(n_tipo_secu);
+        n_region = String(n_region);
         if (pokemon.nombre !== n_nombre)
         {
             pokemon.nombre = n_nombre;
