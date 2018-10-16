@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+var datos = require('./data');
+var listaPokemon = datos.getLista();
+
 router.get('/', function(req, res) {
     var jsonLista = JSON.stringify({listaPokemon});
     res.send(jsonLista);
@@ -31,19 +34,22 @@ router.get('/get/:id', function(req, res, next) {
 //}
 
 router.post('/add-new', function (req, res) {
-    res.send({ type: 'POST' });
-    /*var nuevo = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
+    /*console.log(req.body);
+    res.send({ type: 'POST',
+        nombre: req.body.nombre,
+        región: req.body.region });*/
+    var nuevo = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
         req.body.tipo_secu, req.body.region);  
     if (listaPokemon.some(x => x.id === nuevo.id))
     {
-        res.statusMessage = `Ya existe un pokémon con el id ${req.params.id}.`;
+        res.statusMessage = `Ya existe un pokémon con el id ${req.body.id}.`;
         res.sendStatus(409);
     }
     else
     {
         listaPokemon.push(nuevo);
-        res.sendStatus(201, `El pokémon con id ${req.params.id} fue agregado exitosamente a la lista.`);
-    }*/
+        res.sendStatus(201, `El pokémon con id ${req.body.id} fue agregado exitosamente a la lista.`);
+    }
 });
 
 router.put('/update-pokemon-data/:id', function (req, res) {
