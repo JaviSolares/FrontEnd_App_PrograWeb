@@ -23,6 +23,25 @@ module.exports = {
             region: n_region
         };
         return nuevo;
+    },
+    editPokemon: function(pokemon, n_nombre, n_tipo_prim, n_tipo_secu, n_region) {
+        if (pokemon.nombre !== n_nombre)
+        {
+            pokemon.nombre = n_nombre;
+        }
+        if (pokemon.tipo_prim !== n_tipo_prim)
+        {
+            pokemon.tipo_prim = n_tipo_prim;
+        }
+        if (pokemon.tipo_secu !== n_tipo_secu)
+        {
+            pokemon.tipo_secu = n_tipo_secu;
+        }
+        if (pokemon.region !== n_region)
+        {
+            pokemon.region = n_region;
+        }
+        return pokemon;
     }
 }
 
