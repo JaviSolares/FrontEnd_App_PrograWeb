@@ -46,7 +46,7 @@ router.post('/add-new', function (req, res) {
     }*/
 });
 
-router.put('/update-pokemon-data', function (req, res) {
+router.put('/update-pokemon-data/:id', function (req, res) {
     res.send({ type: 'PUT' });
     /*var num = Number(req.params.id);
     if (listaPokemon.some(x => x.id === num))
