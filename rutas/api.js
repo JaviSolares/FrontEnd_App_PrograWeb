@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Monster = require('../modules/pokemon');
 
 var datos = require('../data');
 var listaPokemon = datos.getLista();
@@ -33,14 +34,13 @@ router.get('/get/:id', function(req, res, next) {
 });    
 //}
 
-router.post('/add-new', function (req, res) {
-    /*console.log(req.body);
-    res.send({ type: 'POST',
-        nombre: req.body.nombre,
-        región: req.body.region });*/
-    var nuevo = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
-        req.body.tipo_secu, req.body.region);  
-    if (listaPokemon.some(x => x.id === nuevo.id))
+router.post('/add-new', function (req, res, next) {
+    /*var nuevo = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
+        req.body.tipo_secu, req.body.region);*/
+    Monster.create(req.body).then(function(pokemon) {
+        res.send(pokemon);
+    }).catch(next); 
+    /*if (listaPokemon.some(x => x.id === nuevo.id))
     {
         res.statusMessage = `Ya existe un pokémon con el id ${req.body.id}.`;
         res.sendStatus(409);
@@ -49,7 +49,7 @@ router.post('/add-new', function (req, res) {
     {
         listaPokemon.push(nuevo);
         res.send(201, `El pokémon con id ${req.body.id} fue agregado exitosamente a la lista.`);
-    }
+    }*/
 });
 
 router.put('/update-pokemon-data/:id', function (req, res) {
