@@ -12,6 +12,10 @@ app.use(bodyParser.json());
 
 app.use('/api/v1/pokemon', router);
 
+app.use(function(err, req, res, next) {
+    res.status(422).send({ error: err.message });
+})
+
 app.listen(5000, function() {
     console.log('Node server is running..');
 });
