@@ -40,20 +40,11 @@ router.post('/add-new', function (req, res, next) {
     }).catch(next); 
 });
 
-router.put('/update-pokemon-data/:id', function (req, res) {
-    // res.send({ type: 'PUT' });
-    var num = Number(req.params.id);
-    if (listaPokemon.some(x => x.id === num))
-    {
-        var anticuado = listaPokemon.find(x => x.id === num);
-        anticuado = datos.editPokemon(anticuado, req.body.nombre, req.body.tipo_prim,
-            req.body.tipo_secu, req.body.region);
-        res.send(204, `La información del pokémon con id ${req.params.id} fue editada exitosamente.`);
-    }
-    else
-    {
-        res.send(404, 'No se encontró ningún pokémon con ese id.');
-    }
+router.put('/update-pokemon-data/:id', function (req, res, next) {
+    Monster.findOneAndUpdate({ id: req.params.id }, req.body)
+        .then(function(pokemon) {
+            res.send(pokemon);
+        });
 });
 
 router.delete('/delete-pokemon-data/:id', function (req, res, next) {
