@@ -35,21 +35,9 @@ router.get('/get/:id', function(req, res, next) {
 //}
 
 router.post('/add-new', function (req, res, next) {
-    /*var nuevo = datos.createPokemon(req.body.id, req.body.nombre, req.body.tipo_prim,
-        req.body.tipo_secu, req.body.region);*/
     Monster.create(req.body).then(function(pokemon) {
         res.send(pokemon);
     }).catch(next); 
-    /*if (listaPokemon.some(x => x.id === nuevo.id))
-    {
-        res.statusMessage = `Ya existe un pokémon con el id ${req.body.id}.`;
-        res.sendStatus(409);
-    }
-    else
-    {
-        listaPokemon.push(nuevo);
-        res.send(201, `El pokémon con id ${req.body.id} fue agregado exitosamente a la lista.`);
-    }*/
 });
 
 router.put('/update-pokemon-data/:id', function (req, res) {
@@ -68,19 +56,11 @@ router.put('/update-pokemon-data/:id', function (req, res) {
     }
 });
 
-router.delete('/delete-data/:id', function (req, res) {
-    // res.send({ type: 'DELETE' });
-    var num = Number(req.params.id);
-    if (listaPokemon.some(x => x.id === num))
-    {
-        var indice = listaPokemon.findIndex(x => x.id === num);
-        listaPokemon.splice(indice, 1);
-        res.send(204, 'El pokémon con id' + String(num) + 'fue eliminado de la lista.');
-    }
-    else
-    {
-        res.send(404, 'No se encontró ningún pokémon con ese id.');
-    }
+router.delete('/delete-data/:id', function (req, res, next) {
+    Monster.findOneAndDelete({ id: req.params.id })
+        .then(function(pokemon) {
+            res.send(pokemon);
+        });
 });
 
 module.exports = router;
