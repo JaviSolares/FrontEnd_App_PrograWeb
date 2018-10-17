@@ -42,8 +42,11 @@ router.post('/add-new', function (req, res, next) {
 
 router.put('/update-pokemon-data/:id', function (req, res, next) {
     Monster.findOneAndUpdate({ id: req.params.id }, req.body)
-        .then(function(pokemon) {
-            res.send(pokemon);
+    .then(function() {
+            Monster.findOne({ id: req.params.id })
+                .then(function(pokemon) {
+                    res.send(pokemon);
+                });
         });
 });
 
