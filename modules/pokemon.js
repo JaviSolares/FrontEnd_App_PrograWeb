@@ -1,9 +1,27 @@
-class Pokemon {
-    constructor(id, nombre, tipo_prim, tipo_secu, region) {
-        this.id = id;
-        this.nombre = nombre;
-        this.tipo_prim = tipo_prim;
-        this.tipo_secu = tipo_secu;
-        this.region = region;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const PokemonSchema = new Schema({
+    id: {
+        type: Number,
+        required: [true, 'El id es un campo requerido.']
+    },
+    nombre: {
+        type: String,
+        required: [true, 'El nombre es un campo requerido.']
+    },
+    tipo_prim: {
+        type: String,
+        required: [true, 'El tipo primario es un campo requerido.']
+    },
+    tipo_secu: {
+        type: String
+    },
+    region: {
+        type: String
     }
-}
+});
+
+const Monster = mongoose.model('monster', PokemonSchema);
+
+module.exports = Monster;
