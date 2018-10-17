@@ -56,7 +56,7 @@ router.put('/update-pokemon-data/:id', function (req, res) {
     }
 });
 
-router.delete('/delete-data/:id', function (req, res, next) {
+router.delete('/delete-pokemon-data/:id', function (req, res, next) {
     Monster.findOneAndDelete({ id: req.params.id })
         .then(function(pokemon) {
             res.send(pokemon);
