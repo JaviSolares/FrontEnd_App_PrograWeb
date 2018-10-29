@@ -17,7 +17,7 @@ export class PokemonService {
   
   /** GET pokemones from the server */
   getPokemones (): Observable<Pokemon[]> {
-    return this.http.get<Pokemon[]>(this.pokemonesUrl)
+    return this.http.get<Pokemon[]>('http://localhost5000:/api/v1/pokemon')
       .pipe(
         tap(pokemones => this.log('se recuperó la lista de pokémon')),
         catchError(this.handleError('getPokemones', []))
