@@ -5,8 +5,7 @@ var datos = require('../data');
 var listaPokemon = datos.getLista();
 
 router.get('/', function(req, res) {
-    var jsonLista = JSON.stringify({listaPokemon});
-    res.send(jsonLista);
+    res.status(200).json(jsonLista)
 });
 
 router.get('/get/:id', function(req, res, next) {
@@ -16,14 +15,14 @@ router.get('/get/:id', function(req, res, next) {
         res.sendFile('pokepost.html', 
         { root: 'C:/Users/Javier/Desktop/FrontEnd_App_PrograWeb-master/FrontEnd_App_PrograWeb/' });
     }*/
-    if (!listaPokemon.some(x => x.id === num))
+    var pokemon = listaPokemon.find(x => x.id === num);
+        
+    if (!pokemon)
     {
         res.send(404, 'No se encontró ningún pokémon con ese id.');
     }
     else
-    {
-        var pokemon = listaPokemon.find(x => x.id === num);
-            
+    {  
         res.send('Id: ' + pokemon.id + '<br />Nombre: ' +
         pokemon.nombre + '<br />Tipo Primario: ' + pokemon.tipo_prim
         + '<br />Tipo Secundario: ' + pokemon.tipo_secu +
