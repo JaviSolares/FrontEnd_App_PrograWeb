@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-    Monster.findOne({ id: req.params.id })
+    Monster.findOne({ _id: req.params.id })
         .then(function(pokemon) {
             res.send(pokemon);
         });
@@ -25,9 +25,9 @@ router.post('/add-new', function (req, res, next) {
 });
 
 router.put('/update-pokemon-data/:id', function (req, res, next) {
-    Monster.findOneAndUpdate({ id: req.params.id }, req.body)
+    Monster.findOneAndUpdate({ _id: req.params.id }, req.body)
     .then(function() {
-            Monster.findOne({ id: req.params.id })
+            Monster.findOne({ _id: req.params.id })
                 .then(function(pokemon) {
                     res.send(pokemon);
                 });
@@ -35,7 +35,7 @@ router.put('/update-pokemon-data/:id', function (req, res, next) {
 });
 
 router.delete('/delete-pokemon-data/:id', function (req, res, next) {
-    Monster.findOneAndDelete({ id: req.params.id })
+    Monster.findOneAndDelete({ _id: req.params.id })
         .then(function(pokemon) {
             res.send(pokemon);
         });
