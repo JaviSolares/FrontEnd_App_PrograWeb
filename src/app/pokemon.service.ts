@@ -16,7 +16,7 @@ export class PokemonService {
   private pokemonesUrl = 'http://localhost5000:/api/v1/pokemon';  // URL to web api
   
   /** GET pokemones from the server */
-  getPokemones (): Observable<Pokemon[]> {
+  getPokemones() {
     return this.http.get<Pokemon[]>('http://localhost5000:/api/v1/pokemon')
       .pipe(
         tap(pokemones => this.log('se recuperó la lista de pokémon')),
@@ -25,16 +25,16 @@ export class PokemonService {
   }
 
   /** GET pokemon by id. Will 404 if id not found */
-  getPokemon(id: number): Observable<Pokemon> {
+  getPokemon(id: number) {
     const url = `${this.pokemonesUrl}/${id}`;
-    return this.http.get<Pokemon>(url).pipe(
+    return this.http.get(url).pipe(
       tap(_ => this.log(`se recuperó pokémon id=${id}`)),
       catchError(this.handleError<Pokemon>(`getPokemon id=${id}`))
     );
   }
 
   /** PUT: update the pokemon on the server */
-  updatePokemon (pokemon: Pokemon): Observable<any> {
+  updatePokemon (pokemon: Pokemon) {
     const url = `${this.pokemonesUrl}/update-pokemon-data/${pokemon.id}`;
     return this.http.put(url, pokemon, httpOptions).pipe(
       tap(_ => this.log(`se actualizó el pokémon id=${pokemon.id}`)),
@@ -43,7 +43,7 @@ export class PokemonService {
   }
 
   /** POST: add a new pokemon to the server */
-  addPokemon (pokemon: Pokemon): Observable<Pokemon> {
+  addPokemon (pokemon: Pokemon) {
     return this.http.post<Pokemon>(this.pokemonesUrl + '/add-new', pokemon, httpOptions).pipe(
       tap((pokemon: Pokemon) => this.log(`se creó un pokémon con id=${pokemon.id}`)),
       catchError(this.handleError<Pokemon>('addPokemon'))
@@ -51,7 +51,7 @@ export class PokemonService {
   }
 
   /** DELETE: delete the pokemon from the server */
-  deletePokemon (pokemon: Pokemon | number): Observable<Pokemon> {
+  deletePokemon (pokemon: Pokemon | number) {
     const id = typeof pokemon === 'number' ? pokemon : pokemon.id;
     const url = `${this.pokemonesUrl}/delete-pokemon-data/${id}`;
 
