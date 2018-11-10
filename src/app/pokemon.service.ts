@@ -17,7 +17,7 @@ export class PokemonService {
   
   /** GET pokemones from the server */
   getPokemones() {
-    return this.http.get<Pokemon[]>('http://localhost5000:/api/v1/pokemon')
+    return this.http.get('http://localhost5000:/api/v1/pokemon')
       .pipe(
         tap(pokemones => this.log('se recuperó la lista de pokémon')),
         catchError(this.handleError('getPokemones', []))
@@ -29,7 +29,7 @@ export class PokemonService {
     const url = `${this.pokemonesUrl}/${id}`;
     return this.http.get(url).pipe(
       tap(_ => this.log(`se recuperó pokémon id=${id}`)),
-      catchError(this.handleError<Pokemon>(`getPokemon id=${id}`))
+      catchError(this.handleError(`getPokemon id=${id}`))
     );
   }
 
@@ -38,7 +38,7 @@ export class PokemonService {
     const url = `${this.pokemonesUrl}/update-pokemon-data/${pokemon.id}`;
     return this.http.put(url, pokemon, httpOptions).pipe(
       tap(_ => this.log(`se actualizó el pokémon id=${pokemon.id}`)),
-      catchError(this.handleError<any>('updatePokemon'))
+      catchError(this.handleError('updatePokemon'))
     );
   }
 
@@ -46,7 +46,7 @@ export class PokemonService {
   addPokemon (pokemon: Pokemon) {
     return this.http.post<Pokemon>(this.pokemonesUrl + '/add-new', pokemon, httpOptions).pipe(
       tap((pokemon: Pokemon) => this.log(`se creó un pokémon con id=${pokemon.id}`)),
-      catchError(this.handleError<Pokemon>('addPokemon'))
+      catchError(this.handleError('addPokemon'))
     );
   }
 
@@ -57,7 +57,7 @@ export class PokemonService {
 
     return this.http.delete<Pokemon>(url, httpOptions).pipe(
       tap(_ => this.log(`se eliminó al pokémon id=${id}`)),
-      catchError(this.handleError<Pokemon>('deletePokemon'))
+      catchError(this.handleError('deletePokemon'))
     );
   }
 
@@ -67,8 +67,8 @@ export class PokemonService {
   * @param operation - name of the operation that failed
   * @param result - optional value to return as the observable result
   */
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
+  private handleError (operation = 'operation', result?) {
+    return (error: any) => {
 
     // TODO: send the error to remote logging infrastructure
     console.error(error); // log to console instead
@@ -77,7 +77,7 @@ export class PokemonService {
     this.log(`${operation} failed: ${error.message}`);
 
     // Let the app keep running by returning an empty result.
-    return of(result as T);
+    return of(result);
   };
 }
 
