@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Pokemon } from './pokemon';
 import { Observable, of } from 'rxjs';
 import { MensajeService } from './mensaje.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+//import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Response, Headers } from '@angular/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new Headers({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({
@@ -19,7 +20,7 @@ export class PokemonService {
   getPokemones() {
     return this.http.get('http://localhost5000:/api/v1/pokemon')
       .pipe(
-        tap(pokemones => this.log('se recuperó la lista de pokémon')),
+        map(res => res.json()),
         catchError(this.handleError('getPokemones', []))
       );
   }
@@ -28,7 +29,7 @@ export class PokemonService {
   getPokemon(id: number) {
     const url = `${this.pokemonesUrl}/${id}`;
     return this.http.get(url).pipe(
-      tap(_ => this.log(`se recuperó pokémon id=${id}`)),
+      map(_ => this.log(`se recuperó pokémon id=${id}`)),
       catchError(this.handleError(`getPokemon id=${id}`))
     );
   }
@@ -37,15 +38,15 @@ export class PokemonService {
   updatePokemon (pokemon: Pokemon) {
     const url = `${this.pokemonesUrl}/update-pokemon-data/${pokemon.id}`;
     return this.http.put(url, pokemon, httpOptions).pipe(
-      tap(_ => this.log(`se actualizó el pokémon id=${pokemon.id}`)),
+      map(_ => this.log(`se actualizó el pokémon id=${pokemon.id}`)),
       catchError(this.handleError('updatePokemon'))
     );
   }
 
   /** POST: add a new pokemon to the server */
   addPokemon (pokemon: Pokemon) {
-    return this.http.post<Pokemon>(this.pokemonesUrl + '/add-new', pokemon, httpOptions).pipe(
-      tap((pokemon: Pokemon) => this.log(`se creó un pokémon con id=${pokemon.id}`)),
+    return this.http.post(this.pokemonesUrl + '/add-new', pokemon, httpOptions).pipe(
+      map((pokemon: Pokemon) => this.log(`se creó un pokémon con id=${pokemon.id}`)),
       catchError(this.handleError('addPokemon'))
     );
   }
@@ -55,8 +56,8 @@ export class PokemonService {
     const id = typeof pokemon === 'number' ? pokemon : pokemon.id;
     const url = `${this.pokemonesUrl}/delete-pokemon-data/${id}`;
 
-    return this.http.delete<Pokemon>(url, httpOptions).pipe(
-      tap(_ => this.log(`se eliminó al pokémon id=${id}`)),
+    return this.http.delete(url, httpOptions).pipe(
+      map(_ => this.log(`se eliminó al pokémon id=${id}`)),
       catchError(this.handleError('deletePokemon'))
     );
   }
@@ -87,6 +88,6 @@ export class PokemonService {
   }
 
   constructor(
-    private http: HttpClient,
+    private http: Http,
     private servicioMensaje: MensajeService) { }
 }
