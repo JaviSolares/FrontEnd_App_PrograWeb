@@ -16,15 +16,15 @@ export class PokemonesComponent implements OnInit {
       .subscribe(pokemones => this.pokemones = pokemones);
   }
 
-  add(nombre: string, tipo_prim: string, tipo_secu: string, region: string): void {
+  add(id: number, nombre: string, tipo_prim: string, tipo_secu: string, region: string): void {
     nombre = nombre.trim();
     tipo_prim = tipo_prim.trim();
     tipo_secu = tipo_secu.trim();
     region = region.trim();
     if (!nombre) { return; }
-    this.pokemonService.addPokemon({ nombre, tipo_prim, tipo_secu, region } as Pokemon)
+    this.pokemonService.addPokemon({ id, nombre, tipo_prim, tipo_secu, region } as Pokemon)
       .subscribe(pokemon => {
-        this.pokemones.push(pokemon);
+        this.pokemones.push(pokemon as Pokemon);
       });
   }
 
