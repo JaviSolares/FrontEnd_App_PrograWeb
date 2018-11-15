@@ -13,7 +13,11 @@ app.use(bodyParser.json());
 app.use('/api/v1/pokemon', router);
 
 app.use(function(err, req, res, next) {
-    res.status(422).send({ error: err.message });
+    res.status(404).json({ error: err.message });
+});
+
+app.use(function(err, req, res, next) {
+    res.status(422).json({ error: err.message });
 });
 
 app.use(cors());
